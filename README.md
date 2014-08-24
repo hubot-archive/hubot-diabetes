@@ -1,8 +1,8 @@
-# Hubot Example
+# Hubot Diabetes
 
-An example script package for Hubot
+A diabetes script package for Hubot
 
-[![Build Status](https://travis-ci.org/hubot-scripts/hubot-example.png)](https://travis-ci.org/hubot-scripts/hubot-example)
+[![Build Status](https://travis-ci.org/awaxa/hubot-diabetes.png)](https://travis-ci.org/awaxa/hubot-diabetes)
 
 ## Directory Structure
 
