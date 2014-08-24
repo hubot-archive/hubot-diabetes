@@ -2,7 +2,7 @@
 
 A diabetes script package for Hubot
 
-[![Build Status](https://travis-ci.org/awaxa/hubot-diabetes.png)](https://travis-ci.org/awaxa/hubot-diabetes)
+[![Build Status](https://travis-ci.org/hubot-scripts/hubot-diabetes.png)](https://travis-ci.org/hubot-scripts/hubot-diabetes)
 
 ## Directory Structure
 
