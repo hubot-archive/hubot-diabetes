@@ -53,7 +53,7 @@ module.exports = (robot) ->
       reply = reply + tenths(mgdlToIfcc(bg)) + ' mmol/mol (IFCC)'
     else
       reply = 'an average of ' + bg + ' mmol/L or '
-      reply = reply + tenths(mmolToMgdl(bg)) + ' mg/dL'
+      reply = reply + Math.round(mmolToMgdl(bg)) + ' mg/dL'
       reply = reply + ' is approximately equivalent to '
       reply = reply + tenths(mgdlToDcct(mmolToMgdl(bg))) + '% (DCCT) or '
       reply = reply + tenths(mgdlToIfcc(mmolToMgdl(bg))) + ' mmol/mol (IFCC)'
@@ -64,4 +64,4 @@ module.exports = (robot) ->
     if bg >= options.threshold
       msg.send bg + ' mg/dL is ' + tenths(mgdlToMmol(bg)) + ' mmol/L'
     else
-      msg.send bg + ' mmol/L is ' + tenths(mmolToMgdl(bg)) + ' mg/dL'
+      msg.send bg + ' mmol/L is ' + Math.round(mmolToMgdl(bg)) + ' mg/dL'
