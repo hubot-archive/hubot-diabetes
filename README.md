@@ -20,6 +20,10 @@ Add **hubot-diabetes** to your `external-scripts.json`:
 <diabot> 90 mg/dL is 5 mmol/L
 <awaxa> 5.0
 <diabot> 5.0 mmol/L is 90 mg/dL
+<awaxa> diabot: estimate a1c from average 90
+<diabot> an average of 90 mg/dL or 5 mmol/L is approximately equivalent to 4.8% (DCCT) or 28.6 mmol/mol (IFCC)
+<awaxa> diabot: estimate a1c from average 5.0
+<diabot> an average of 5.0 mmol/L or 90 mg/dL is approximately equivalent to 4.8% (DCCT) or 28.6 mmol/mol (IFCC)
 ```
 
 ## Sources
