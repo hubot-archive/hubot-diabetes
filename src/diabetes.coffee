@@ -61,6 +61,7 @@ module.exports = (robot) ->
 
   robot.hear range, (msg) ->
     bg = msg.match[1]
+    return unless bg > 0
     if bg >= options.threshold
       msg.send bg + ' mg/dL is ' + tenths(mgdlToMmol(bg)) + ' mmol/L'
     else
