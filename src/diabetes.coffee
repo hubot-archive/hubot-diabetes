@@ -8,6 +8,7 @@
 #   HUBOT_GLUCOSE_UNIT_THRESHOLD
 #
 # Commands:
+#   <glucose level> - convert between mass/molar concentration units
 #   hubot estimate a1c [from average] <glucose level> - Estimates average HbA1C
 #
 # Author:
