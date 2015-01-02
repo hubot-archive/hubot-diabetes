@@ -28,15 +28,15 @@ mgdlToDcct = (n) ->
 mgdlToIfcc = (n) ->
   return (mgdlToDcct(n)-2.15)*10.929
 
-tenths = (n) ->
-  Math.round(10*n)/10
-
 module.exports = (robot) ->
-  range = ///^( # begin a capture group anchored to the beginning of the string
-    \d{2,3}     # numbers that fit mg/dL
-    |           # or
-    \d{1,2}\.\d # numbers that fit mmol/L
-    )$///       # end the capture group anchored to the end of the string
+  range = ///
+    ^              # anchor to the beginning of the string
+    (              # begin a capture group
+    \d{1,3}        # one to three digit numbers
+    (\.\d)?        # optional tenths place
+    )              # end a capture group
+    $              # anchor to the end of the string
+    ///
 
   options =
     threshold: process.env.HUBOT_GLUCOSE_UNIT_THRESHOLD
@@ -48,22 +48,22 @@ module.exports = (robot) ->
     bg = msg.match[2]
     if bg >= options.threshold
       reply = 'an average of ' + bg + ' mg/dL or '
-      reply = reply + tenths(mgdlToMmol(bg)) + ' mmol/L'
+      reply = reply + mgdlToMmol(bg).toFixed(1) + ' mmol/L'
       reply = reply + ' is approximately equivalent to '
-      reply = reply + tenths(mgdlToDcct(bg)) + '% (DCCT) or '
-      reply = reply + tenths(mgdlToIfcc(bg)) + ' mmol/mol (IFCC)'
+      reply = reply + mgdlToDcct(bg).toFixed(1) + '% (DCCT) or '
+      reply = reply + mgdlToIfcc(bg).toFixed(1) + ' mmol/mol (IFCC)'
     else
       reply = 'an average of ' + bg + ' mmol/L or '
       reply = reply + Math.round(mmolToMgdl(bg)) + ' mg/dL'
       reply = reply + ' is approximately equivalent to '
-      reply = reply + tenths(mgdlToDcct(mmolToMgdl(bg))) + '% (DCCT) or '
-      reply = reply + tenths(mgdlToIfcc(mmolToMgdl(bg))) + ' mmol/mol (IFCC)'
+      reply = reply + mgdlToDcct(mmolToMgdl(bg)).toFixed(1) + '% (DCCT) or '
+      reply = reply + mgdlToIfcc(mmolToMgdl(bg)).toFixed(1) + ' mmol/mol (IFCC)'
     msg.send reply
 
   robot.hear range, (msg) ->
     bg = msg.match[1]
     return unless bg > 0
     if bg >= options.threshold
-      msg.send bg + ' mg/dL is ' + tenths(mgdlToMmol(bg)) + ' mmol/L'
+      msg.send bg + ' mg/dL is ' + mgdlToMmol(bg).toFixed(1) + ' mmol/L'
     else
       msg.send bg + ' mmol/L is ' + Math.round(mmolToMgdl(bg)) + ' mg/dL'
