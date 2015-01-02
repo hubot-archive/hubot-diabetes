@@ -32,11 +32,15 @@ tenths = (n) ->
   Math.round(10*n)/10
 
 module.exports = (robot) ->
-  range = ///^( # begin a capture group anchored to the beginning of the string
+  range = ///
+    ^           # anchor to the beginning of the string
+    (           # begin a capture group
     \d{2,3}     # numbers that fit mg/dL
     |           # or
     \d{1,2}\.\d # numbers that fit mmol/L
-    )$///       # end the capture group anchored to the end of the string
+    )           # end a capture group
+    $           # anchor to the end of the string
+    ///
 
   options =
     threshold: process.env.HUBOT_GLUCOSE_UNIT_THRESHOLD
