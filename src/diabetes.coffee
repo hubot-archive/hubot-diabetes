@@ -33,13 +33,13 @@ tenths = (n) ->
 
 module.exports = (robot) ->
   range = ///
-    ^           # anchor to the beginning of the string
-    (           # begin a capture group
-    \d{2,3}     # numbers that fit mg/dL
-    |           # or
-    \d{1,2}\.\d # numbers that fit mmol/L
-    )           # end a capture group
-    $           # anchor to the end of the string
+    ^              # anchor to the beginning of the string
+    (              # begin a capture group
+    \d{2,3}        # numbers that fit mg/dL
+    |              # or
+    \d{1,2}(\.\d)? # numbers that fit mmol/L
+    )              # end a capture group
+    $              # anchor to the end of the string
     ///
 
   options =
