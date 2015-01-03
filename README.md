@@ -18,6 +18,10 @@ Add **hubot-diabetes** to your `external-scripts.json`:
 ```
 <awaxa> 90
 <diabot> 90 mg/dL is 5 mmol/L
+<awaxa> i was _90_ this morning
+<diabot> 90 mg/dL is 5 mmol/L
+<awaxa> i was _5.0_ this morning
+<diabot> 5.0 mmol/L is 90 mg/dL
 <awaxa> 5.0
 <diabot> 5.0 mmol/L is 90 mg/dL
 <awaxa> diabot: estimate a1c from average 90
