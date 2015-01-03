@@ -30,12 +30,12 @@ mgdlToIfcc = (n) ->
 
 module.exports = (robot) ->
   range = ///
-    ^              # anchor to the beginning of the string
+    (?:^|_)        # anchor to the beginning of the string
     (              # begin a capture group
     \d{1,3}        # one to three digit numbers
     (\.\d)?        # optional tenths place
     )              # end a capture group
-    $              # anchor to the end of the string
+    (?:$|_)        # anchor to the end of the string
     ///
 
   options =
