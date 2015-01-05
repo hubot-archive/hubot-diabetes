@@ -66,15 +66,15 @@ module.exports = (robot) ->
     options.a1cThreshold = 20
 
   robot.respond /estimate a1c (from average )?(.*)/i, (msg) ->
-    bg = msg.match[2]
+    bg = parseFloat(msg.match[2])
     mgdl = 0
     mmol = 0
 
     if bg >= options.threshold
-      mgdl = bg
+      mgdl = bg.toFixed(0)
       mmol = mgdlToMmol(bg).toFixed(1)
     else
-      mmol = bg
+      mmol = bg.toFixed(1)
       mgdl = mmolToMgdl(bg).toFixed(0)
 
     dcct = mgdlToDcct(mgdl)
@@ -87,15 +87,15 @@ module.exports = (robot) ->
     msg.send reply
 
   robot.respond /estimate average (from a1c )?(.*)/i, (msg) ->
-    a1c = msg.match[2]
+    a1c = parseFloat(msg.match[2])
     dcct = 0
     ifcc = 0
 
     if a1c >= options.a1cThreshold
-      ifcc = a1c
+      ifcc = a1c.toFixed(0)
       dcct = ifccToDcct(a1c).toFixed(1)
     else
-      dcct = a1c
+      dcct = a1c.toFixed(1)
       ifcc = dcctToIfcc(a1c).toFixed(0)
 
     mgdl = dcctToMgdl(dcct)
@@ -103,8 +103,9 @@ module.exports = (robot) ->
     reply = 'an a1c of ' + dcct + '% (DCCT) or '
     reply = reply + ifcc + ' mmol/mol (IFCC)'
     reply = reply + ' is about '
-    reply = reply + mgdl.toFixed(0) + 'mg/dL or '
+    reply = reply + mgdl.toFixed(0) + ' mg/dL or '
     reply = reply + mgdlToMmol(mgdl).toFixed(1) + ' mmol/L'
+
     msg.send reply
 
   robot.hear range, (msg) ->
