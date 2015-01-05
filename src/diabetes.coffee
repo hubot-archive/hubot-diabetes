@@ -6,14 +6,17 @@
 #
 # Configuration:
 #   HUBOT_GLUCOSE_UNIT_THRESHOLD
+#   HUBOT_A1C_UNIT_THRESHOLD
 #
 # Commands:
 #   number - convert glucose between mass/molar concentration units
 #   _number_ - convert glucose between mass/molar concentration units inline
 #   hubot estimate a1c [from average] <glucose level> - Estimates average HbA1C
+#   hubot estimate average [from a1c] <HbA1C> - Estimates average blood glucose
 #
 # Author:
 #   awaxa
+#   cjo20
 
 conversionratio = 18.0182
 
@@ -98,10 +101,10 @@ module.exports = (robot) ->
     mgdl = dcctToMgdl(dcct)
 
     reply = 'an a1c of ' + dcct + '% (DCCT) or '
-    reply = reply + ifcc + ' mmol/mol (IFCC)'    	
+    reply = reply + ifcc + ' mmol/mol (IFCC)'
     reply = reply + ' is approximately equivalent to '
     reply = reply + mgdl.toFixed(0) + 'mg/dL or '
-    reply = reply + mgdlToMmol(mgdl).toFixed(1) + ' mmol/L' 
+    reply = reply + mgdlToMmol(mgdl).toFixed(1) + ' mmol/L'
     msg.send reply
 
   robot.hear range, (msg) ->
