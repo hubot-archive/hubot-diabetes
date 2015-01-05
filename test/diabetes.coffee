@@ -15,5 +15,8 @@ describe 'diabetes', ->
   it 'registers a respond listener for "estimate a1c"', ->
     expect(@robot.respond).to.have.been.calledWith(/estimate a1c (from average )?(.*)/i)
 
+  it 'registers a respond listener for "estimate average"', ->
+    expect(@robot.respond).to.have.been.calledWith(/estimate average (from a1c )?(.*)/i)
+
   it 'registers a hear listener for glucose readings', ->
     expect(@robot.hear).to.have.been.calledWith(/(?:^|_)(\d{1,3}(\.\d)?)(?:$|_)/)

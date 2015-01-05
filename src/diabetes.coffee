@@ -29,6 +29,19 @@ mgdlToDcct = (n) ->
 mgdlToIfcc = (n) ->
   return (mgdlToDcct(n)-2.15)*10.929
 
+dcctToIfcc = (n) ->
+  return (n - 2.15)*10.929
+
+ifccToDcct = (n) ->
+  return (n / 10.929) + 2.15
+
+dcctToMgdl = (n) ->
+  return (n * 28.7) - 46.7
+
+ifccToMgdl = (n) ->
+  return dcctToMgdl((n / 10.929) + 2.5)
+
+
 module.exports = (robot) ->
   range = ///
     (?:^|_)        # anchor to the beginning of the string
@@ -41,24 +54,54 @@ module.exports = (robot) ->
 
   options =
     threshold: process.env.HUBOT_GLUCOSE_UNIT_THRESHOLD
+    a1cThreshold: process.env.HUBOT_A1C_UNIT_THRESHOLD
 
   unless options.threshold
     options.threshold = 30
 
+  unless options.a1cThreshold
+    options.a1cThreshold = 20
+
   robot.respond /estimate a1c (from average )?(.*)/i, (msg) ->
     bg = msg.match[2]
+    mgdl = 0
+    mmol = 0
+
     if bg >= options.threshold
-      reply = 'an average of ' + bg + ' mg/dL or '
-      reply = reply + mgdlToMmol(bg).toFixed(1) + ' mmol/L'
-      reply = reply + ' is approximately equivalent to '
-      reply = reply + mgdlToDcct(bg).toFixed(1) + '% (DCCT) or '
-      reply = reply + mgdlToIfcc(bg).toFixed(1) + ' mmol/mol (IFCC)'
+      mgdl = bg
+      mmol = mgdlToMmol(bg).toFixed(1)
     else
-      reply = 'an average of ' + bg + ' mmol/L or '
-      reply = reply + Math.round(mmolToMgdl(bg)) + ' mg/dL'
-      reply = reply + ' is approximately equivalent to '
-      reply = reply + mgdlToDcct(mmolToMgdl(bg)).toFixed(1) + '% (DCCT) or '
-      reply = reply + mgdlToIfcc(mmolToMgdl(bg)).toFixed(1) + ' mmol/mol (IFCC)'
+      mmol = bg
+      mgdl = mmolToMgdl(bg).toFixed(0)
+
+    dcct = mgdlToDcct(mgdl)
+
+    reply = 'an average of ' + mgdl + ' mg/dL or '
+    reply = reply + mmol + ' mmol/L'
+    reply = reply + ' is approximately equivalent to '
+    reply = reply + dcct.toFixed(1) + '% (DCCT) or '
+    reply = reply + dcctToIfcc(dcct).toFixed(0) + ' mmol/mol (IFCC)'
+    msg.send reply
+
+  robot.respond /estimate average (from a1c )?(.*)/i, (msg) ->
+    a1c = msg.match[2]
+    dcct = 0
+    ifcc = 0
+
+    if a1c >= options.a1cThreshold
+      ifcc = a1c
+      dcct = ifccToDcct(a1c).toFixed(1)
+    else
+      dcct = a1c
+      ifcc = dcctToIfcc(a1c).toFixed(0)
+
+    mgdl = dcctToMgdl(dcct)
+
+    reply = 'an a1c of ' + dcct + '% (DCCT) or '
+    reply = reply + ifcc + ' mmol/mol (IFCC)'    	
+    reply = reply + ' is approximately equivalent to '
+    reply = reply + mgdl.toFixed(0) + 'mg/dL or '
+    reply = reply + mgdlToMmol(mgdl).toFixed(1) + ' mmol/L' 
     msg.send reply
 
   robot.hear range, (msg) ->
