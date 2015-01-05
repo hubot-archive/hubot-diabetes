@@ -81,7 +81,7 @@ module.exports = (robot) ->
 
     reply = 'an average of ' + mgdl + ' mg/dL or '
     reply = reply + mmol + ' mmol/L'
-    reply = reply + ' is approximately equivalent to '
+    reply = reply + ' is about '
     reply = reply + dcct.toFixed(1) + '% (DCCT) or '
     reply = reply + dcctToIfcc(dcct).toFixed(0) + ' mmol/mol (IFCC)'
     msg.send reply
@@ -102,7 +102,7 @@ module.exports = (robot) ->
 
     reply = 'an a1c of ' + dcct + '% (DCCT) or '
     reply = reply + ifcc + ' mmol/mol (IFCC)'
-    reply = reply + ' is approximately equivalent to '
+    reply = reply + ' is about '
     reply = reply + mgdl.toFixed(0) + 'mg/dL or '
     reply = reply + mgdlToMmol(mgdl).toFixed(1) + ' mmol/L'
     msg.send reply
