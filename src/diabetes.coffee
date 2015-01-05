@@ -83,7 +83,7 @@ module.exports = (robot) ->
     reply = reply + dcctToIfcc(dcct).toFixed(0) + ' mmol/mol (IFCC)'
     msg.send reply
 
-  robot.respond /estimate average (from a1c)?(.*)/i, (msg) ->
+  robot.respond /estimate average (from a1c )?(.*)/i, (msg) ->
     a1c = msg.match[2]
     dcct = 0
     ifcc = 0
