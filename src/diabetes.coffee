@@ -100,7 +100,7 @@ module.exports = (robot) ->
 
     mgdl = dcctToMgdl(dcct)
 
-    reply = 'an a1c of ' + dcct + '% (DCCT) or '
+    reply = 'an HbA1c of ' + dcct + '% (DCCT) or '
     reply = reply + ifcc + ' mmol/mol (IFCC)'
     reply = reply + ' is about '
     reply = reply + mgdl.toFixed(0) + ' mg/dL or '
