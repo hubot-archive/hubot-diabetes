@@ -11,8 +11,8 @@
 # Commands:
 #   number - convert glucose between mass/molar concentration units
 #   _number_ - convert glucose between mass/molar concentration units inline
-#   hubot estimate a1c [from average] <glucose level> - Estimates average HbA1C
-#   hubot estimate average [from a1c] <HbA1C> - Estimates average blood glucose
+#   hubot estimate a1c [from average] <glucose level> - Estimates average A1C
+#   hubot estimate average [from a1c] <A1C> - Estimates average blood glucose
 #
 # Author:
 #   awaxa
@@ -100,7 +100,7 @@ module.exports = (robot) ->
 
     mgdl = dcctToMgdl(dcct)
 
-    reply = 'an HbA1c of ' + dcct + '% (DCCT) or '
+    reply = 'an A1C of ' + dcct + '% (DCCT) or '
     reply = reply + ifcc + ' mmol/mol (IFCC)'
     reply = reply + ' is about '
     reply = reply + mgdl.toFixed(0) + ' mg/dL or '
